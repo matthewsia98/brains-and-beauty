@@ -7,7 +7,7 @@ import FaceProducts from './FaceProducts';
 
 function App() {
   return (
-    <div >
+    <div>
       <Navbar />
       <Routes>
       <Route exact path="/" element={<Home/>} />
