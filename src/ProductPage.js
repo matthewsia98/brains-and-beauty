@@ -1,23 +1,49 @@
 import droppersImage from './photos/droppers.png';
-import { Tab, Nav } from 'react-bootstrap';
 import { useState } from 'react';
-const ProductPage = (product) => {
-    const [activeTab, setActiveTab] = useState('tab1');
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { useParams } from 'react-router-dom';
+import { productList } from './Home';
+const ProductPage = () => {
 
-    const handleTabSelect = (selectedTab) => {
-      setActiveTab(selectedTab);
-    };
+    const {product_id} = useParams();
+    const product = productList.find(el => el.id == product_id);
+
+    const renderTabContent = (index) => {
+        if (index === 0) {
+          return (
+            <div>
+                actives
+            </div>
+          );
+        } else if (index === 1) {
+          return (
+            <div>
+                {product.ingredient_list}
+            </div>
+          );
+        } else if (index === 2) {
+          return (
+            <div>
+                directions
+            </div>
+          );
+        }
+      };
+    
     return ( 
         <div className="container-lg m-2 p-5">
         <div className="row mx-auto">
             <div className="col-md-6">    
                 <div>
                     <h3>
-                        Product Name
+                        {product.name}
                     </h3> 
+                    <h5 className='fw-bold'>{product.brand}</h5>
+                    <p className='mt-4'>{product.description}</p>
                 </div>
-                <div className='mt-5'>
-                    <p className='text-decoration-underline'>16.00 CAD</p>
+                <div className='mt-4'>
+                    <p className='text-decoration-underline'>{product.price} CAD</p>
                     <label for="quantity">Quantity</label>
                     <select id="quantity" className="form-select border-dark" style={{width:'200px'}}>
                         <option value={1}>1</option>
@@ -42,41 +68,26 @@ const ProductPage = (product) => {
 
             </div>
             <div className="col-md-6">
-                <img src={droppersImage} alt="skincare droppers" style={{ width: '600px', height: '400px'}}/>  
+                <img src={require(`${product.image_path}`)}  style={{ width: '100%', height: '100%'}}/>  
             </div>
         </div>
-        <div>
-            <Nav variant="tabs" defaultActiveKey={activeTab}>
-                <Nav.Item>
-                <Nav.Link eventKey="tab1" onSelect={handleTabSelect}>
-                    Tab 1
-                </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link eventKey="tab2" onSelect={handleTabSelect}>
-                    Tab 2
-                </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                <Nav.Link eventKey="tab3" onSelect={handleTabSelect}>
-                    Tab 3
-                </Nav.Link>
-                </Nav.Item>
-            </Nav>
-            <Tab.Content>
-                <Tab.Pane eventKey="tab1">
-                <h1>Tab 1 Content</h1>
-                <p>This is the content for Tab 1.</p>
-                </Tab.Pane>
-                <Tab.Pane eventKey="tab2">
-                <h1>Tab 2 Content</h1>
-                <p>This is the content for Tab 2.</p>
-                </Tab.Pane>
-                <Tab.Pane eventKey="tab3">
-                <h1>Tab 3 Content</h1>
-                <p>This is the content for Tab 3.</p>
-                </Tab.Pane>
-            </Tab.Content>
+        <div className='mt-5'>
+            <Tabs defaultIndex={0}>
+                <TabList>
+                    <Tab>Key Ingredients</Tab>
+                    <Tab>Full Ingredient List</Tab>
+                    <Tab>Directions</Tab>
+                </TabList>
+                <TabPanel>
+                    {renderTabContent(0)}
+                </TabPanel>
+                <TabPanel>
+                    {renderTabContent(1)}
+                </TabPanel>
+                <TabPanel>
+                    {renderTabContent(2)}
+                </TabPanel>
+            </Tabs>
         </div>
         </div>
     );

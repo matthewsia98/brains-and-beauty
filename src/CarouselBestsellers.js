@@ -2,8 +2,9 @@ import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
 import { useState } from 'react';
 import ProductCard from './ProductCard';
+import { bestSellers } from './Home';
 
-const CarouselBestSellers  = ({bestsellers}) => {
+const CarouselBestSellers  = ({products}) => {
     const responsive = {
         superLargeDesktop: {
           breakpoint: { max: 4000, min: 3000 },
@@ -24,11 +25,13 @@ const CarouselBestSellers  = ({bestsellers}) => {
       };
     return ( 
       <Carousel responsive={responsive}>
-                {bestsellers.map((bestseller) => (
-                    <div>
-                        <ProductCard product ={bestseller}/>
-                    </div>
-                ))}
+        {products.map((item) => (
+          bestSellers.includes(item.id) ? (
+            <div key={item.id}>
+              <ProductCard product={item} />
+            </div>
+          ) : null
+        ))}
  
       </Carousel>
 
