@@ -11,7 +11,8 @@ const  Navbar = () => {
             <div className="collapse navbar-collapse" id="mainNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <a href="/face">Face Products</a>
+                  <Link to="/face">Face Products</Link>
+                  {/* <a href="/face">Face Products</a> */}
                 </li>
                 <li className="nav-item">
                   <a href="/">Body Products</a>
