@@ -7,7 +7,7 @@ import { productList } from './Home';
 const ProductPage = () => {
 
     const {product_id} = useParams();
-    const product = productList.find(el => el.id == product_id);
+    const product = productList.find(el => el.id === product_id);
 
     const renderTabContent = (index) => {
         if (index === 0) {
@@ -68,7 +68,7 @@ const ProductPage = () => {
 
             </div>
             <div className="col-md-6">
-                <img src={require(`${product.image_path}`)}  style={{ width: '100%', height: '100%'}}/>  
+                <img src={require(`${product.image_path}`)} alt="product" style={{ width: '100%', height: '100%'}}/>  
             </div>
         </div>
         <div className='mt-5'>
