@@ -11,6 +11,7 @@ const faceProductList = productList.filter((product) =>
 );
 const faceConcerns = ['Acne', 'Dryness',  'Dullness', 'Redness', 'Signs of Aging']
 const faceIngredients = ['Ascorbic Acid','Azelaic Acid', 'Glycolic Acid',  'Niacinamide', 'Peptides', 'Retinol', 'Salicylic Acid']
+const faceBrands = ['The Ordinary', 'Paula\'s Choice',  'La Roche Posay', 'Eucerin', 'Cerave']
 
 
 function Items({ currentItems }) {
@@ -67,7 +68,11 @@ const FaceProducts = () => {
                         <div className="mt-4">
                             <h4>Ingredients</h4>   
                             <CheckboxList items ={faceIngredients}/>
-                        </div>     
+                        </div>  
+                        <div className="mt-4">
+                            <h4>Brands</h4>   
+                            <CheckboxList items ={faceBrands}/>
+                        </div>    
                         <div className="my-4">
                             <h4>Price</h4>   
                             <CheckboxList items ={priceRanges}/>
