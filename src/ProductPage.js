@@ -7,7 +7,7 @@ import { productList } from './Home';
 const ProductPage = () => {
 
     const {product_id} = useParams();
-    const product = productList.find(el => el.id === product_id);
+    const product = productList.find(el => el.id == product_id);
 
     const renderTabContent = (index) => {
         if (index === 0) {
