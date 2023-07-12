@@ -1,59 +1,112 @@
 import { productList } from "./Home";
-import { faceProducts } from "./Home";
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import ReactPaginate from 'react-paginate';
 import ProductCard from "./ProductCard";
-import { Pagination } from 'react-bootstrap';
 import { priceRanges } from "./Home";
-const faceProductList = productList.filter((product) =>
-  faceProducts.includes(product.id)
-);
-const faceConcerns = ['Acne', 'Dryness',  'Dullness', 'Redness', 'Signs of Aging']
-const faceIngredients = ['Ascorbic Acid','Azelaic Acid', 'Glycolic Acid',  'Niacinamide', 'Peptides', 'Retinol', 'Salicylic Acid']
-const faceBrands = ['The Ordinary', 'Paula\'s Choice',  'La Roche Posay', 'Eucerin', 'Cerave']
+import ProductPagination from "./productPagination";
+import './index.css';
 
+const faceProductList = productList.filter((product) =>
+  product.category.includes('face')
+);
+const faceConcerns = ['Acne', 'Dryness', 'Dullness', 'Redness', 'Signs of Aging'];
+const faceIngredients = ['Ascorbic Acid', 'Azelaic Acid', 'Glycolic Acid', 'Urea', 'Niacinamide', 'Peptides', 'Retinol', 'Salicylic Acid'];
+const faceBrands = ['The Ordinary', 'Paula\'s Choice', 'La Roche Posay', 'Eucerin', 'Cerave'];
 
 function Items({ currentItems }) {
-    return(
-        <>
-        {currentItems &&
-          currentItems.map((item) => (
-            <div className="col-md-4" key={item.id}>
-                <ProductCard product={item} />
-            </div>
-          ))}
-        </>
-    );
+  return (
+    <>
+      {currentItems &&
+        currentItems.map((item) => (
+          <div className="col-md-4" key={item.id}>
+            <ProductCard product={item} />
+          </div>
+        ))}
+    </>
+  );
 }
-
 
 const FaceProducts = () => {
+  const [checkedItems, setCheckedItems] = useState([]);
+  const [displayList, setDisplayList] = useState(faceProductList);
 
-    const itemsPerPage= 6;
-    const [itemOffset, setItemOffset] = useState(0);
 
-    const endOffset = itemOffset + itemsPerPage;
-    const currentItems = faceProductList.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(faceProductList.length / itemsPerPage);
-
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % faceProductList.length;
-        setItemOffset(newOffset);
-    };
-
-    function CheckboxList({ items}) {
-    return (
-        <div style={{ marginLeft: '5%' }}>
-        {items.map((item) => (
-            <div key={item}>
-            <input type="checkbox" id={item} name={item} value={item}/>
-            <label style={{ marginLeft: '3%' }}>{item}</label>
+ 
+    function CheckboxList({ items, category}) {
+        return (
+            <div style={{ marginLeft: '5%' }}>
+            {items.map((item) => (
+                <div key={item}>
+                <input type="checkbox" id={item} name={category} value={item}  checked={checkedItems.includes(item)} onChange={handleCheckboxChange}/>
+                <label style={{ marginLeft: '3%' }}>{item}</label>
+                </div>
+            ))}
             </div>
-        ))}
-        </div>
-    );
-}
+        );
+    }
+
+    const filterProducts = (category, value) => {
+        if (category === 'concerns') {
+        return faceProductList.filter((product) =>
+            product.target_concerns.includes(value)
+        );
+        } else if (category === 'ingredients') {
+        return faceProductList.filter((product) =>
+            product.active_ingredient.includes(value)
+        );
+        } else if (category === 'brands') {
+        return faceProductList.filter((product) =>
+            product.brand === value
+        );
+        } 
+    };
+    
+    const handleCheckboxChange=(e) => {
+        const isChecked = e.target.checked;
+        const value = e.target.value;
+        let category = e.target.name;
+
+        if(isChecked){
+
+            setCheckedItems((prevCheckedItems) => {
+                  return [...prevCheckedItems, value];
+            });
+
+            if(checkedItems.length == 0){
+                setDisplayList([]);
+            }
+            const tempList = filterProducts(category, value);
+            setDisplayList((prevList) => {
+              const unionSet = new Set([...prevList, ...tempList]);
+              return Array.from(unionSet);
+            });
+        }else{
+            if(checkedItems.length == 1){
+                setDisplayList(faceProductList);
+            }else{
+                const temp = checkedItems.filter((item) => item !== value);
+                let filteredList = [];
+                
+
+                for (const item of temp) {
+                  if(faceConcerns.includes(item)){
+                    category = "concerns"
+                  }else if(faceIngredients.includes(item)){
+                    category = "ingredients"
+                  }else{
+                    category = "brands"
+                  }
+                  const tempList = filterProducts(category, item);
+                  filteredList = [...filteredList, ...tempList];
+                }
+            
+                const unionSet = new Set(filteredList);
+                setDisplayList(Array.from(unionSet));
+            }
+            setCheckedItems((prevCheckedItems) => {
+                  return prevCheckedItems.filter((item) => item !== value);
+            });
+        }
+    }
       
     return (     
         <div className="mt-3 p-5">
@@ -63,45 +116,20 @@ const FaceProducts = () => {
                     <div className="container-lg bg-yellow">
                         <div className="mt-4">
                             <h4>Concerns</h4>   
-                            <CheckboxList items ={faceConcerns}/>
+                            <CheckboxList items ={faceConcerns} category="concerns"/>
                         </div>
                         <div className="mt-4">
                             <h4>Ingredients</h4>   
-                            <CheckboxList items ={faceIngredients}/>
+                            <CheckboxList items ={faceIngredients} category="ingredients"/>
                         </div>  
-                        <div className="mt-4">
-                            <h4>Brands</h4>   
-                            <CheckboxList items ={faceBrands}/>
-                        </div>    
                         <div className="my-4">
-                            <h4>Price</h4>   
-                            <CheckboxList items ={priceRanges}/>
-                        </div>   
+                            <h4>Brands</h4>   
+                            <CheckboxList items ={faceBrands} category="brands"/>
+                        </div>  
                     </div>   
                 </div>
                 <div className="col-9">
-                    <div className="row">
-                    <Items currentItems={currentItems} />
-                    </div>
-                    <ReactPaginate className="pagination-container"
-                    breakLabel="..."
-                    nextLabel="next >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                    breakClassName={'page-item'}
-                    breakLinkClassName={'page-link'}
-                    containerClassName={'pagination'}
-                    pageClassName={'page-item'}
-                    pageLinkClassName={'page-link'}
-                    previousClassName={'page-item'}
-                    previousLinkClassName={'page-link'}
-                    nextClassName={'page-item'}
-                    nextLinkClassName={'page-link'}
-                    activeClassName={'active'}
-                   />
+                    <ProductPagination input={displayList}></ProductPagination>
                 </div>
             </div>
         </div>

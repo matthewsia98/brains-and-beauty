@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { useParams } from 'react-router-dom';
 import { productList } from './Home';
+import './index.css';
 const ProductPage = () => {
 
     const {product_id} = useParams();
@@ -25,7 +26,7 @@ const ProductPage = () => {
         } else if (index === 2) {
           return (
             <div>
-                directions
+                {product.directions}
             </div>
           );
         }

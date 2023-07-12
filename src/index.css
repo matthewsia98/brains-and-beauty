@@ -26,10 +26,10 @@ code {
   color: #f1356d;
 }
 .bg-pink{
-  background-color: #e0dadb;
+  background-color: #fef9f9;
 }
 .bg-yellow{
-  background-color: blanchedalmond;
+  background-color: rgb(252, 246, 236);
 }
 .pagination-container {
   display: flex;
