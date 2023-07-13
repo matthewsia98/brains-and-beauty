@@ -31,7 +31,7 @@ const ProductPagination= ({input}) => {
 
     return (  
             <div>
-                <div className="row">
+                <div className="row" >
                 <Items currentItems={currentItems} />
                 </div>
                 <ReactPaginate className="pagination-container"

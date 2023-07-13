@@ -17,7 +17,7 @@ export const productList = [
       price: '16.00',
       target_concerns: ['Acne', 'Dullness', 'Hyperpigmentation'],
       directions:'This product is recommended for evening use, applied with a saturated cotton pad on cleansed face and neck, avoiding sensitive areas. It should not be rinsed off, and caution should be exercised regarding skin contact frequency and duration. Sunscreen and limited sun exposure are advised due to increased sun sensitivity caused by the product\'s alpha hydroxy acid content.',
-      image_path: './photos/glycolic_acid_toning_solution.webp',
+      image_path: './photos/glycolic_acid_toning_solution.webp'
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ export const productList = [
       price: '30.00',
       target_concerns: ['Acne', 'Dullness'],
       directions: 'Apply 1-2 pumps over entire face and neck, including the eye area (avoid lash line and eyelids) after cleansing and toning. Do not rinse. Apply every other day and note skin\'s response. Then use up to twice daily. For daytime, always finish with SPF 30+. For nighttime, follow with the rest of your routine. If you have a salicylate allergy, check with your physician before using any products that contain salicylic acid.',
-      image_path: './photos/bha-lotion.avif',
+      image_path: './photos/bha-lotion.avif'
     },
     {
         id: 3,
@@ -43,7 +43,7 @@ export const productList = [
         price: '20.00',
         target_concerns: ['Acne', 'Redness'],
         directions:'Once or twice daily, apply to face and neck. May be used alone or added to your favorite moisturizer or serum. For daytime, always follow with a sunscreen. If you have a salicylate allergy, check with your physician before using any products that contain salicylic acid.',
-        image_path: './photos/azelaic-acid-booster.avif',
+        image_path: './photos/azelaic-acid-booster.avif'
       },
       {
         id: 4,
@@ -56,8 +56,9 @@ export const productList = [
         price: '55.00',
         target_concerns: ['Signs of Aging'],
         directions:'Ideal for softening and smoothing the face, neck and eye area. At night, use as the last step in your skincare routine. For daytime, follow with a broad-spectrum sunscreen rated SPF 30 or greater.',
-        image_path: './photos/resist-barrier-repair-moisturizer.avif',
-      },      {
+        image_path: './photos/resist-barrier-repair-moisturizer.avif'
+      },      
+      {
         id: 5,
         name: 'Barrier Repair Moisturizer with Retinol',
         brand: 'Eucerin',
@@ -68,7 +69,7 @@ export const productList = [
         price: '17.25',
         target_concerns: ['Dryness'],
         directions:'Start by cleansing your face, then pat dry. Gently massage the cream into your face and neck. Use every evening.',
-        image_path: './photos/urea-repair.jpg',
+        image_path: './photos/urea-repair.jpg'
       },
       
       {
