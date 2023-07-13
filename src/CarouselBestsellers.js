@@ -24,7 +24,7 @@ const CarouselBestSellers  = ({products}) => {
         }
       };
     return ( 
-      <Carousel responsive={responsive}>
+      <Carousel responsive={responsive} infinite={true}>
         {products.map((item) => (
           bestSellers.includes(item.id) ? (
             <div key={item.id}>

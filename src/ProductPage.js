@@ -5,6 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 import { useParams } from 'react-router-dom';
 import { productList } from './Home';
 import './index.css';
+import { actives } from './Home';
 const ProductPage = () => {
 
     const {product_id} = useParams();
@@ -12,11 +13,13 @@ const ProductPage = () => {
 
     const renderTabContent = (index) => {
         if (index === 0) {
-          return (
-            <div>
-                actives
-            </div>
-          );
+            return (
+                <div>
+                  {product.active_ingredient.map((ingredient) => (
+                    <div key={ingredient}><strong>{ingredient}:</strong> {actives[ingredient]}</div>
+                  ))}
+                </div>
+              );
         } else if (index === 1) {
           return (
             <div>
@@ -69,7 +72,7 @@ const ProductPage = () => {
 
             </div>
             <div className="col-md-6">
-                <img src={require(`${product.image_path}`)} alt="product" style={{ width: '100%', height: '100%'}}/>  
+                <img className='ms-5' src={require(`${product.image_path}`)} alt="product" style={{ width: '100%', height: '100%'}}/>  
             </div>
         </div>
         <div className='mt-5'>
