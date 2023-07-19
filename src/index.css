@@ -22,14 +22,17 @@ code {
   padding: 6px;
   color:rgb(83, 79, 79);
 }
-.navbar a:hover {
+a:hover {
   color: #f1356d;
 }
 .bg-pink{
-  background-color: #fdf1f1;
+  background-color: #fff7ed;
 }
 .bg-yellow{
-  background-color: rgb(252, 246, 236);
+  background-color: #fff7ed;
+}
+.bg-orange{
+  background-color: #fcca95;
 }
 .pagination-container {
   display: flex;
@@ -43,4 +46,17 @@ code {
 }
 .card:hover{
   transform: scale(1.10);
+}
+.image-container {
+  position: relative;
+  display: flex;
+}
+
+.black-box {
+  background-color: #000000;
+  width: 40%;
+  height:80%;
+  position: absolute;
+  top: 10%;
+  left:5%;
 }

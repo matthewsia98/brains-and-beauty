@@ -13,14 +13,26 @@ const ProductPage = () => {
 
     const renderTabContent = (index) => {
         if (index === 0) {
-            return (
-                <div>
-                  {product.active_ingredient.map((ingredient) => (
-                    <div key={ingredient}><strong>{ingredient}:</strong> {actives[ingredient]}</div>
-                  ))}
-                </div>
-              );
-        } else if (index === 1) {
+            if(product.category == "sun"){
+                return (
+                    <div>
+                    {Object.entries(product.uv_filters).map(([ingredient, percentage]) => (
+                      <div key={ingredient}>
+                        <strong>{ingredient}:</strong> {percentage}
+                      </div>
+                    ))}
+                  </div>
+                )
+            }else{
+                return (
+                    <div>
+                      {product.active_ingredient.map((ingredient) => (
+                        <div key={ingredient}><strong>{ingredient}:</strong> {actives[ingredient]}</div>
+                      ))}
+                    </div>
+                  );
+            }
+        }else if (index === 1) {
           return (
             <div>
                 {product.ingredient_list}
@@ -34,6 +46,52 @@ const ProductPage = () => {
           );
         }
       };
+    
+    const createTabs = () => {
+        if (product.category == "sun"){
+            return(
+                <div className='mt-5'>
+                <Tabs defaultIndex={0}>
+                    <TabList>
+                        <Tab>UV Filters</Tab>
+                        <Tab>Full Ingredient List</Tab>
+                        <Tab>Directions</Tab>
+                    </TabList>
+                    <TabPanel>
+                        {renderTabContent(0)}
+                    </TabPanel>
+                    <TabPanel>
+                        {renderTabContent(1)}
+                    </TabPanel>
+                    <TabPanel>
+                        {renderTabContent(2)}
+                    </TabPanel>
+                </Tabs>
+                </div>
+            );
+        }else{
+            return (
+                <div className='mt-5'>
+                <Tabs defaultIndex={0}>
+                    <TabList>
+                        <Tab>Key Ingredients</Tab>
+                        <Tab>Full Ingredient List</Tab>
+                        <Tab>Directions</Tab>
+                    </TabList>
+                    <TabPanel>
+                        {renderTabContent(0)}
+                    </TabPanel>
+                    <TabPanel>
+                        {renderTabContent(1)}
+                    </TabPanel>
+                    <TabPanel>
+                        {renderTabContent(2)}
+                    </TabPanel>
+                </Tabs>
+                </div>
+            );
+        }
+    }
     
     return ( 
         <div className="container-lg m-2 p-5">
@@ -75,24 +133,7 @@ const ProductPage = () => {
                 <img className='ms-5' src={require(`${product.image_path}`)} alt="product" style={{ width: '100%', height: '100%'}}/>  
             </div>
         </div>
-        <div className='mt-5'>
-            <Tabs defaultIndex={0}>
-                <TabList>
-                    <Tab>Key Ingredients</Tab>
-                    <Tab>Full Ingredient List</Tab>
-                    <Tab>Directions</Tab>
-                </TabList>
-                <TabPanel>
-                    {renderTabContent(0)}
-                </TabPanel>
-                <TabPanel>
-                    {renderTabContent(1)}
-                </TabPanel>
-                <TabPanel>
-                    {renderTabContent(2)}
-                </TabPanel>
-            </Tabs>
-        </div>
+        {createTabs()}
         </div>
     );
 }

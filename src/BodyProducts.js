@@ -1,17 +1,16 @@
 import { productList } from "./Home";
 import React, { useEffect, useState } from 'react';
 import ProductCard from "./ProductCard";
-import { priceRanges } from "./Home";
 import ProductPagination from "./productPagination";
 import './index.css';
-import womanFace from './photos/faceprods.jpg';
+import bodyProds from './photos/bodyprods.jpg';
 
-const faceProductList = productList.filter((product) =>
-  product.category.includes('face')
+const bodyProductList = productList.filter((product) =>
+  product.category.includes('body')
 );
-const faceConcerns = ['Acne', 'Dryness', 'Dullness', 'Redness', 'Signs of Aging'];
-const faceIngredients = ['Ascorbic Acid', 'Azelaic Acid', 'Glycolic Acid','Glycerin', 'Urea', 'Niacinamide', 'Peptides', 'Retinol', 'Salicylic Acid'];
-const faceBrands = ['The Ordinary', 'Paula\'s Choice', 'La Roche Posay', 'Eucerin', 'Cerave'];
+const bodyConcerns = ['Acne', 'Dryness', 'Eczema', 'Keratosis Pilaris', 'Scars'];
+const bodyIngredients = ['Colloidal Oatmeal','Ceramides','Glycolic Acid','Glycerin','Lactic Acid', 'Urea','Petrolatum', 'Salicylic Acid'];
+const bodyBrands = ['Aveeno', 'The Ordinary', 'Paula\'s Choice', 'Eucerin', 'Cerave','First Aid Beauty'];
 
 function Items({ currentItems }) {
   return (
@@ -26,10 +25,9 @@ function Items({ currentItems }) {
   );
 }
 
-
-const FaceProducts = () => {
+const BodyProducts = () => {
   const [checkedItems, setCheckedItems] = useState([]);
-  const [displayList, setDisplayList] = useState(faceProductList);
+  const [displayList, setDisplayList] = useState(bodyProductList);
   const [priceFilter, setPriceFilter] = useState('0')
  
     function CheckboxList({ items, category}) {
@@ -49,31 +47,31 @@ const FaceProducts = () => {
 
       if(price === '0'){
         if (category === 'concerns') {
-          return faceProductList.filter((product) =>
+          return bodyProductList.filter((product) =>
               product.target_concerns.includes(value)
           );
           } else if (category === 'ingredients') {
-          return faceProductList.filter((product) =>
+          return bodyProductList.filter((product) =>
               product.active_ingredient.includes(value)
           );
           } else if (category === 'brands') {
-          return faceProductList.filter((product) =>
+          return bodyProductList.filter((product) =>
               product.brand === value 
           );
       }
       }else{
         if (category === 'concerns') {
-          return faceProductList.filter((product) =>
+          return bodyProductList.filter((product) =>
               product.target_concerns.includes(value) &&
               parseFloat(product.price) <= parseFloat(price)
           );
           } else if (category === 'ingredients') {
-          return faceProductList.filter((product) =>
+          return bodyProductList.filter((product) =>
               product.active_ingredient.includes(value) &&
               parseFloat(product.price) <= parseFloat(price)
           );
           } else if (category === 'brands') {
-          return faceProductList.filter((product) =>
+          return bodyProductList.filter((product) =>
               product.brand === value &&
               parseFloat(product.price) <= parseFloat(price)
           );
@@ -103,16 +101,16 @@ const FaceProducts = () => {
             });
         }else{
             if(checkedItems.length == 1){
-                setDisplayList(faceProductList);
+                setDisplayList(bodyProductList);
             }else{
                 const temp = checkedItems.filter((item) => item !== value);
                 let filteredList = [];
                 
 
                 for (const item of temp) {
-                  if(faceConcerns.includes(item)){
+                  if(bodyConcerns.includes(item)){
                     category = "concerns"
-                  }else if(faceIngredients.includes(item)){
+                  }else if(bodyIngredients.includes(item)){
                     category = "ingredients"
                   }else{
                     category = "brands"
@@ -136,12 +134,12 @@ const FaceProducts = () => {
       let filteredList = [];
       let category ='';
       if(checkedItems.length ===0){
-        filteredList = faceProductList
+        filteredList = bodyProductList
       }else{
         for (const item of checkedItems) {
-          if(faceConcerns.includes(item)){
+          if(bodyConcerns.includes(item)){
             category = "concerns"
-          }else if(faceIngredients.includes(item)){
+          }else if(bodyIngredients.includes(item)){
             category = "ingredients"
           }else{
             category = "brands"
@@ -173,13 +171,13 @@ const FaceProducts = () => {
       
     return (     
       <div>
-        <div>
-          <img src={womanFace} alt="woman face" style={{ width: '100%'}}/>  
-          <div style={{ position: 'absolute', top: '25%', right:"14%", zIndex: 1 }}>
-             <h2>Face Products</h2>
-             <p className="mt-3" style={{ fontSize: '1.5vw'}}>Unlock your skin's potential with our collection</p><p style={{ fontSize: '1.5vw'}}>of evidence-based formulas! </p>
+        <div style={{ position: 'relative' }}>
+          <img src={bodyProds} alt="women smiling" style={{ width: '100%'}}/>  
+          <div style={{ position: 'absolute', top: '25%', right:"12%", zIndex: 1 }}>
+             <h2>Body Products</h2>
+             <p className="mt-3" style={{ fontSize: '1.5vw'}}>Discover the essence of self-care with our</p><p style={{ fontSize: '1.5vw'}}> selection of effective and affordable body products!</p>
           </div>
-        </div>
+        </div>     
         <div className="p-4">
         <h4 className="mb-4">Filter By</h4>
         <div className="row">
@@ -187,15 +185,15 @@ const FaceProducts = () => {
                 <div className="container-lg bg-yellow">
                     <div className="mt-4">
                         <h5>Concerns</h5>   
-                        <CheckboxList items ={faceConcerns} category="concerns"/>
+                        <CheckboxList items ={bodyConcerns} category="concerns"/>
                     </div>
                     <div className="mt-4">
                         <h5>Ingredients</h5>   
-                        <CheckboxList items ={faceIngredients} category="ingredients"/>
+                        <CheckboxList items ={bodyIngredients} category="ingredients"/>
                     </div>  
                     <div className="my-4">
                         <h5>Brands</h5>   
-                        <CheckboxList items ={faceBrands} category="brands"/>
+                        <CheckboxList items ={bodyBrands} category="brands"/>
                     </div>  
                 </div>   
             </div>
@@ -223,4 +221,4 @@ const FaceProducts = () => {
     );
 }
  
-export default FaceProducts;
+export default BodyProducts;

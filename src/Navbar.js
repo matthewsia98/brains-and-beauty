@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import './index.css';
 const  Navbar = () => {
     return (  
+      <div>
         <nav className="navbar navbar-expand-md bg-pink">
         <div className="container-fluid">
            <Link className="navbar-brand navbar-heading" to="/">Brains&Beauty</Link>
@@ -15,18 +16,19 @@ const  Navbar = () => {
                   {/* <a href="/face">Face Products</a> */}
                 </li>
                 <li className="nav-item">
-                  <a href="/">Body Products</a>
+                  <Link to="/body">Body Products</Link>
                 </li>
                 <li className="nav-item">
-                  <a href="/">Sun Care</a>
+                  <Link to="/suncare">Sun Care</Link>
                 </li>
                 <li className="nav-item">
-                  <a href="/">Hair Products</a>
+                  <Link to="/hair">Hair Products</Link>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
+      </div>
     );
 }
  
