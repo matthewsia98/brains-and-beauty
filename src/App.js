@@ -7,7 +7,8 @@ import FaceProducts from './FaceProducts';
 import BodyProducts from './BodyProducts';
 import SunProducts from './SunProducts';
 import HairProducts from './HairProducts';
-
+import Checkout from './Checkout';
+import { CartProvider } from './CartContext';
 function App() {
   return (
     <div>
@@ -19,6 +20,7 @@ function App() {
       <Route path="/body" element={<BodyProducts/>}/>
       <Route path="/suncare" element={<SunProducts/>}/>
       <Route path="/hair" element={<HairProducts/>}/>
+      <Route path="/checkout" element={<Checkout/>}/>
     </Routes>
     </div>
   );

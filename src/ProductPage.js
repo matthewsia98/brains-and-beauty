@@ -1,5 +1,6 @@
 import droppersImage from './photos/droppers.png';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { CartContext } from './CartContext';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { useParams } from 'react-router-dom';
@@ -7,9 +8,45 @@ import { productList } from './Home';
 import './index.css';
 import { actives } from './Home';
 const ProductPage = () => {
+    const { product_id } = useParams();
+    const product = productList.find((el) => el.id == product_id);
+    const [selectedQuantity, setSelectedQuantity] = useState(1);
+    const { cartItems, setCartItems } = useContext(CartContext);
 
-    const {product_id} = useParams();
-    const product = productList.find(el => el.id == product_id);
+
+    const addToCart = () => {
+      const existingCartItemIndex = cartItems.findIndex((item) => item.id === product.id);
+    
+      if (existingCartItemIndex !== -1) {
+        const updatedCart = cartItems.map((item, index) => {
+          if (index === existingCartItemIndex) {
+            return { ...item, quantity: item.quantity + selectedQuantity };
+          }
+          return item;
+        });
+        setCartItems(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+      } else {
+        const newCartItem = {
+          id: product.id,
+          name: product.name,
+          quantity: selectedQuantity,
+          price: parseFloat(product.price)
+        };
+        const newCart = [...cartItems, newCartItem];
+        setCartItems(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+      }
+    };
+    
+    
+
+      
+  const handleQuantityChange = (e) => {
+    setSelectedQuantity(Number(e.target.value));
+  };
+      
+    
 
     const renderTabContent = (index) => {
         if (index === 0) {
@@ -107,7 +144,7 @@ const ProductPage = () => {
                 <div className='mt-4'>
                     <p className='text-decoration-underline'>{product.price} CAD</p>
                     <label for="quantity">Quantity</label>
-                    <select id="quantity" className="form-select border-dark" style={{width:'200px'}}>
+                    <select id="quantity" className="form-select border-dark" onChange={handleQuantityChange} style={{width:'200px'}}>
                         <option value={1}>1</option>
                         <option value={2}>2</option>
                         <option value={3}>3</option>
@@ -123,6 +160,7 @@ const ProductPage = () => {
                             border: 'none',
                             fontSize: '16px'
                         }}
+                        onClick={addToCart}
                         >
                         Add to Cart
                     </button>
