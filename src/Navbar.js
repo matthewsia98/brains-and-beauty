@@ -24,7 +24,6 @@ const Navbar = () => {
     useEffect(() => {
       const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
       setCart(storedCart);
-      console.log(storedCart)
     }, []);
   
     const handleDeleteCartItem = (itemId) => {
@@ -68,7 +67,7 @@ const Navbar = () => {
                 <Link to="/hair">Hair Products</Link>
               </li>
               <li className="nav-item">
-                <Link to="/">Support</Link>
+                <Link to="/support">Support</Link>
               </li>
               <li className="nav-item me-3 ms-3" onClick={toggleCartPopup}>
                 <div>

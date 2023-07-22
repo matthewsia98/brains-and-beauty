@@ -1,5 +1,6 @@
 import homephoto from './photos/homephoto.webp';
 import './index.css';
+import {Link} from 'react-router-dom'
 import CarouselBestSellers from './CarouselBestsellers';
 
 
@@ -472,7 +473,7 @@ const Home = () => {
                         <p>
                             <br/> Brains & Beauty is an online store <br/> founded by a group of cosmetic chemists and <br/> dermatologists in 2020. <br/><br/> Our mission is to provide a carefully curated <br/> selection of affordable and effective<br/> products based on the latest research.
                         </p>                   
-                        <a  style={{color: 'white'}}href="/">Get in Touch with One of Our Experts</a>
+                        <Link to="/support" style={{color: 'white'}}>Get in Touch with One of Our Experts</Link>
             </div>
           </div>
         </div>

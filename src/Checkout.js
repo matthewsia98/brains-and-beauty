@@ -11,6 +11,7 @@ function Checkout() {
     shippingStreet:"",
     shippingCity:"",
     shippingPostalCode:"",
+    shippingProvince: "Province",
     firstNameCard:"",
     lastNameCard:"",
     cardNumber:"",
@@ -18,7 +19,6 @@ function Checkout() {
     billingStreet:"",
     billingCity:"",
     billingPostalCode:""
-
   });
 
   const provinces = [
@@ -85,6 +85,7 @@ function Checkout() {
           onChange={(e) => {
             setFormData({ ...formData, [`${addressPrefix}Street`]: e.target.value });
           }}
+          required
         />
         <div className="row">
           <div className="col-6">
@@ -96,20 +97,24 @@ function Checkout() {
               onChange={(e) => {
                 setFormData({ ...formData, [`${addressPrefix}City`]: e.target.value });
               }}
+              required
             />
           </div>
           <div className="col-6">
             <select
               className="form-field"
-              value={addressPrefix === "billing" ? selectedBillingProvince : selectedShippingProvince}
+              id="province"
+              value={addressPrefix === "billing" ? selectedBillingProvince : formData.shippingProvince}
               onChange={(e) => {
                 const selectedProvince = e.target.value;
                 if (addressPrefix === "billing") {
                   setSelectedBillingProvince(selectedProvince);
                 } else {
-                  setSelectedShippingProvince(selectedProvince);
+                  // setSelectedShippingProvince(selectedProvince);
+                setFormData({ ...formData, [`${addressPrefix}Province`]: e.target.value });
                 }
               }}
+              required
             >
               {provinces.map((province) => (
                 <option key={province} value={province}>
@@ -128,6 +133,7 @@ function Checkout() {
           onChange={(e) => {
             setFormData({ ...formData, [`${addressPrefix}PostalCode`]: e.target.value });
           }}
+          required
         />
       </div>
     );
@@ -149,6 +155,7 @@ function Checkout() {
                 onChange={(e) => {
                   setFormData({ ...formData, firstName: e.target.value });
                 }}
+                required
             />
             </div>
             <div className="col-6">
@@ -160,6 +167,7 @@ function Checkout() {
                 onChange={(e) => {
                   setFormData({ ...formData, lastName: e.target.value });
                 }}
+                required
             />
             </div>
         </div>
@@ -172,6 +180,7 @@ function Checkout() {
             onChange={(e) => {
               setFormData({ ...formData, phoneNumber: e.target.value });
             }}
+            required
         />
         <input
         className="form-field"
@@ -182,6 +191,7 @@ function Checkout() {
             onChange={(e) => {
               setFormData({ ...formData, email: e.target.value });
             }}
+            required
         />
         <h5 className="mt-4">Shipping Address</h5>
         {addressInput("shipping")}
@@ -296,6 +306,26 @@ function Checkout() {
     }
   };
 
+  const validate_input_and_go_next = () => {
+    const first_name = formData.firstName
+    const last_name = formData.lastName
+    const email = formData.email
+    const address = formData.address
+    const city = formData.city
+    const post_code = formData.shippingPostalCode
+    if (page == 0 && first_name != "" && last_name != "" && email != "" && address != "" && city != "" && post_code != "") {
+      // const province = document.querySelector("#province").value
+      const province = formData.shippingProvince
+      if (province !== "Province") {
+        setPage((currPage) => currPage + 1);
+      } else {
+        // alert("Please pick a province")
+      }
+    } else if (page == 1) {
+      console.log("hello world")
+    }
+  }
+
   return (
     <div className="row">
       <div className="col-6">
@@ -305,6 +335,7 @@ function Checkout() {
             style={{ width: page === 0 ? "33.3%" : page == 1 ? "66.6%" : "100%" }}
           ></div>
         </div>
+        <form>
         <div className="form-container">
           <div className="header">
             <h3>{FormTitles[page]}</h3>
@@ -322,15 +353,19 @@ function Checkout() {
             )}
           {page !== 2 && ( 
             <button
-            onClick={() => {
-                setPage((currPage) => currPage + 1);
-            }}
+            type="submit"
+            className="submit-button"
+            // onClick={() => {
+            //     setPage((currPage) => currPage + 1);
+            // }}
+            onClick={validate_input_and_go_next}
           >
             {page === 1? "Submit" : "Next"}
           </button>
             )}
           </div>
         </div>
+        </form>
       </div>
       </div>
       <div className="col-6" style={{marginTop:"70px"}}> <CartSummary/> </div>

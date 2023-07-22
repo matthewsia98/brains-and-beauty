@@ -8,6 +8,8 @@ import BodyProducts from './BodyProducts';
 import SunProducts from './SunProducts';
 import HairProducts from './HairProducts';
 import Checkout from './Checkout';
+import Support from './Support';
+import NotFound from './NotFound';
 import { CartProvider } from './CartContext';
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
       <Route path="/suncare" element={<SunProducts/>}/>
       <Route path="/hair" element={<HairProducts/>}/>
       <Route path="/checkout" element={<Checkout/>}/>
+      <Route path="/support" element={<Support/>}/>
+      <Route path="*" element={<NotFound/>}/>
     </Routes>
     </div>
   );
