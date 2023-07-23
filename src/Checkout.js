@@ -37,6 +37,22 @@ function Checkout() {
     "Nunavut",
     "Yukon",
   ];
+  const tax_rates = {
+    Province: 0,
+    Alberta: 0.05,
+    "British Columbia": 0.05,
+    Manitoba: 0.05,
+    "New Brunswick": 0.15,
+    "Newfoundland and Labrador": 0.15,
+    "Nova Scotia": 0.15,
+    Ontario: 0.13,
+    "Prince Edward Island": 0.15,
+    Quebec: 0.05,
+    Saskatchewan: 0.05,
+    "Northwest Territories": 0.05,
+    Nunavut: 0.05,
+    Yukon: 0.05,
+  };
   const months = [
     "Expiry Month",
     "01",
@@ -111,7 +127,7 @@ function Checkout() {
               value={
                 addressPrefix === "billing"
                   ? selectedBillingProvince
-                  : formData.shippingProvince
+                  : selectedShippingProvince
               }
               onChange={(e) => {
                 const selectedProvince = e.target.value;
@@ -457,7 +473,7 @@ function Checkout() {
       </div>
       <div className="col-6" style={{ marginTop: "70px" }}>
         {" "}
-        <CartSummary />{" "}
+        <CartSummary tax_rate={tax_rates[selectedShippingProvince]} />{" "}
       </div>
     </div>
   );
