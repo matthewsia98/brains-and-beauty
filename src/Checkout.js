@@ -386,8 +386,8 @@ function Checkout() {
         first_name != "" &&
         last_name != "" &&
         card_number != "" &&
-        expiry_month != "" &&
-        expiry_year != "" &&
+        expiry_month != "Expiry Month" &&
+        expiry_year != "Expiry Year" &&
         cvc != "";
       if (same_as_shipping) {
         if (cc_info_filled) {
