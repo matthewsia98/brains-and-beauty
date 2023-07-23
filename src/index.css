@@ -1,37 +1,37 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .navbar-heading {
-  font-size: 1.4rem; 
-  font-weight: bold; 
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 .navbar a {
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
-  color:rgb(83, 79, 79);
+  color: rgb(83, 79, 79);
 }
 a:hover {
   color: #f1356d;
 }
-.bg-pink{
+.bg-pink {
   background-color: #fff7ed;
 }
-.bg-yellow{
+.bg-yellow {
   background-color: #fff7ed;
 }
-.bg-orange{
+.bg-orange {
   background-color: #fcca95;
 }
 .pagination-container {
@@ -44,8 +44,8 @@ a:hover {
   margin: 0 5px;
   display: flex;
 }
-.card:hover{
-  transform: scale(1.10);
+.card:hover {
+  transform: scale(1.1);
 }
 .image-container {
   position: relative;
@@ -55,10 +55,10 @@ a:hover {
 .black-box {
   background-color: #000000;
   width: 40%;
-  height:80%;
+  height: 80%;
   position: absolute;
   top: 10%;
-  left:5%;
+  left: 5%;
 }
 
 .form-container {
@@ -135,7 +135,7 @@ a:hover {
   position: absolute;
   top: 60px;
   right: 20px;
-  width:40%;
+  width: 40%;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -180,7 +180,7 @@ a:hover {
 .delete-button {
   background-color: transparent;
   border: none;
-  color: #f1356d; 
+  color: #f1356d;
   font-size: 20px;
   cursor: pointer;
   margin-left: 10px;
